@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Page d\'accueil Flutter'),
+      home:  MyHomePage(title: 'Page Flutter'),
     );
   }
 }
@@ -24,7 +24,7 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
   final String title;
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<StatefulWidget> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             TextField(
-              controller: _ageController,  // Fixed: was using _nomController instead of _ageController
+              controller: _ageController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Votre age',
@@ -169,7 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   _formation = newValue!;
                 });
               },
-              items: <String>['Informatique', 'Mathématiques', 'Physique', 'Chimie']
+              items: <String>['Informatique', 'Design', 'Marketing', 'Marketing']
                   .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
