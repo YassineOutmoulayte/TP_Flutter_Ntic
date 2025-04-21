@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tp_ntic/Parametres.dart';
+import 'package:tp_ntic/aide.dart';
+import 'package:tp_ntic/profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home:  MyHomePage(title: 'Page Flutter'),
+      home: MyHomePage(title: 'Page Flutter'),
     );
   }
 }
@@ -44,6 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
+      drawer: _buildDrawer(context),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -169,13 +173,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   _formation = newValue!;
                 });
               },
-              items: <String>['Informatique', 'Design', 'Marketing', 'Marketing']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
+              items:
+                  <String>[
+                    'Informatique',
+                    'Design',
+                    'Marketing',
+                    'Marketing',
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
             ),
             SizedBox(height: 16),
             Center(
@@ -184,17 +193,98 @@ class _MyHomePageState extends State<MyHomePage> {
                   String nom = _nomController.text;
                   String age = _ageController.text;
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text("Bonjour $nom vous avez $age ans"),
-                    ),
+                    SnackBar(content: Text("Bonjour $nom vous avez $age ans")),
                   );
                 },
                 child: Text('valider'),
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+Widget _buildDrawer(BuildContext context) {
+  return Drawer(
+    child: ListView(
+      padding: EdgeInsets.zero,
+      children: [
+        DrawerHeader(
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CircleAvatar(
+                radius: 30,
+                backgroundColor: Colors.white,
+                child: Icon(
+                  Icons.person,
+                  size: 40,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+              SizedBox(height: 10),
+              Text(
+                "Maneu de Navigation",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              Text(
+                "Application Flutter",
+                style: TextStyle(color: Colors.white38, fontSize: 16),
+              ),
+            ],
+          ),
+        ),
+        ListTile(
+          leading: Icon(Icons.home),
+          title: Text('Accueil'),
+          onTap: () {},
+        ),
+        ListTile(
+          leading: Icon(Icons.person),
+          title: Text('Profile'),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfieScreen()),
+            );
+          },
+        ),
+        Divider(),
+        ListTile(
+          leading: Icon(Icons.settings),
+          title: Text('Parametres'),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ParametresScreen()),
+            );
+          },
+        ),
+        ListTile(
+          leading: Icon(Icons.help),
+          title: Text('Aide'),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AideScreen()),
+            );
+          },
+        ),
+        Divider(),
+        ListTile(
+          leading: Icon(Icons.exit_to_app, color: Colors.red),
+          title: Text('Deconnexion', style: TextStyle(color: Colors.red)),
+          onTap: () {},
+        ),
+      ],
+    ),
+  );
 }
